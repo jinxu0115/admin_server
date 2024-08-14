@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 export default function NameIpPairTable() {
   const router = useRouter();
   const columns = ["id", "name", "IP address", "Action"];
-  const [data, setData] = useState([]);
+  // const [datas, setDatas] = useState([]);
   const datas = [
     {
       id: 1,
@@ -52,7 +52,7 @@ export default function NameIpPairTable() {
 
   function deleteItem() {
     // axios
-    //   .post("http://localhost:3001/api/delete", { itemid: chooseItem })
+    //   .post("http://localhost:3001/api/delete", { id: chooseItem })
     //   .then((res) => {
     //     if (res.data === "success") {
     //       router.push('/dashboard');
@@ -63,7 +63,6 @@ export default function NameIpPairTable() {
     //   .catch((err) => {
     //     console.error("An error occurred:", err);
     //   });
-    // router.push("/dashboard");
   }
 
   function addItem() {
@@ -75,7 +74,6 @@ export default function NameIpPairTable() {
       toast.error("IP Address field is required");
       return;
     }
-    alert(addData.ipAddress);
     // axios
     // .post("http://localhost:3001/api/add", { data: addData })
     // .then((res) => {
@@ -91,41 +89,40 @@ export default function NameIpPairTable() {
   }
 
   function updateItem() {
-    if (!addData.name) {
+    if (!updateData.name) {
       toast.error("Name field is required");
       return;
     }
-    if (!addData.ipAddress) {
+    if (!updateData.ipAddress) {
       toast.error("IP Address field is required");
       return;
     }
-    alert(updateData.ipAddress);
-    axios
-      .post("http://localhost:3001/api/update", {
-        data: addData,
-        id: updateData.id,
-      })
-      .then((res) => {
-        if (res.data === "success") {
-          // router.push('/dashboard');
-        } else {
-          console.error("Failed to add:", res.data);
-        }
-      })
-      .catch((err) => {
-        console.error("An error occurred:", err);
-      });
+    // axios
+    //   .post("http://localhost:3001/api/update", {
+    //     data: updateData,
+    //   })
+    //   .then((res) => {
+    //     if (res.data === "success") {
+    //       // router.push('/dashboard');
+    //     } else {
+    //       console.error("Failed to add:", res.data);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.error("An error occurred:", err);
+    //   });
   }
   const [open, setOpen] = useState(false);
   const [addOpen, setAddOpen] = useState(false);
   const [updateOpen, setUpdateOpen] = useState(false);
   console.log(addData)
+
   return (
     <div className="items-center`">
       <div className="items-center  ">
         <button
           id="Add"
-          className="bg-blue-500 text-white px-2 py-2 rounded font-bold w-1/4"
+          className="bg-blue-500 text-white px-2 py-2 rounded font-bold w-1/4 mb-4"
           onClick={() => setAddOpen(true)}
         >
           Add
