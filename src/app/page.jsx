@@ -25,7 +25,7 @@ export default function Home() {
 
     axios.defaults.withCredentials = true;
     axios
-      .post("http://localhost:3001/validatePassword", formData) // Fixed the request payload
+      .post("http://192.168.8.110:8081/login", formData) // Fixed the request payload
       .then((res) => {
         if (res.data.validation) {
           toast.success("Your password is correct, Thank you");
