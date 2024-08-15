@@ -29,7 +29,7 @@ export default function Home() {
       .then((res) => {
         if (res.data.validation) {
           toast.success("Your password is correct, Thank you");
-          router.push('/profile'); // Use router.push for client-side navigation
+          router.push('/dashboard'); // Use router.push for client-side navigation
         } else {
           toast.error("Your password is not correct");
         }

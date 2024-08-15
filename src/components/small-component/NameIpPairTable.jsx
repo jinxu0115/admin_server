@@ -1,12 +1,12 @@
 "use client";
 
 import Modal from "./Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArchiveBoxXMarkIcon,
   PencilSquareIcon,
 } from "@heroicons/react/24/outline";
-import axios from "axios";
+import axios from "@/app/apis/axios";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,55 +14,51 @@ import "react-toastify/dist/ReactToastify.css";
 export default function NameIpPairTable() {
   const router = useRouter();
   const columns = ["id", "name", "IP address", "Action"];
-  // const [datas, setDatas] = useState([]);
-  const datas = [
-    {
-      id: 1,
-      name: "ad",
-      ip: "192.168.0.2",
-    },
-    {
-      id: 2,
-      name: "dae",
-      ip: "198.165.45.56",
-    },
-    {
-      id: 3,
-      name: "dae",
-      ip: "198.165.45.56",
-    },
-    {
-      id: 4,
-      name: "dae",
-      ip: "198.165.45.56",
-    },
-    {
-      id: 5,
-      name: "dae",
-      ip: "198.165.45.56",
-    },
-  ];
+  const [datas, setDatas] = useState([]);
   const [addData, setAddData] = useState({ name: "", ipAddress: "" });
   const [updateData, setUpdateData] = useState({
     id: "",
     name: "",
     ipAddress: "",
   });
+  const [open, setOpen] = useState(false);
+  const [addOpen, setAddOpen] = useState(false);
+  const [updateOpen, setUpdateOpen] = useState(false);
   const [chooseItem, setItem] = useState("");
+  const [mounted, setMounted] = useState(false);
 
+  useEffect(() => {
+    setMounted(true);
+    getPairs();
+  }, []);
+
+  function getPairs() {
+    axios
+      .get('/api/setting/list')
+      .then(res => {
+        setDatas(res.data)
+      })
+      .catch(error => {
+    })
+  }  
+
+  if (!mounted || !datas) {
+    return null;
+  }
   function deleteItem() {
-    // axios
-    //   .post("http://localhost:3001/api/delete", { id: chooseItem })
-    //   .then((res) => {
-    //     if (res.data === "success") {
-    //       router.push('/dashboard');
-    //     } else {
-    //       console.error("Failed to delete:", res.data);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.error("An error occurred:", err);
-    //   });
+    axios
+      .delete('/api/setting/ip/' + chooseItem, {
+        ipAddress: addData.ipAddress,
+        userName: addData.name
+      })
+      .then(res => {
+        toast.success('User name and IP address are deleted successfully!');
+        setOpen(false)
+        getPairs()
+      })
+      .catch(error => {
+        toast.error(error?.response.data);
+      })
   }
 
   function addItem() {
@@ -74,18 +70,19 @@ export default function NameIpPairTable() {
       toast.error("IP Address field is required");
       return;
     }
-    // axios
-    // .post("http://localhost:3001/api/add", { data: addData })
-    // .then((res) => {
-    //   if (res.data === "success") {
-    //     // router.push('/dashboard');
-    //   } else {
-    //     console.error("Failed to add:", res.data);
-    //   }
-    // })
-    // .catch((err) => {
-    //   console.error("An error occurred:", err);
-    // });
+    axios
+      .post('/api/setting/ip', {
+        ipAddress: addData.ipAddress,
+        userName: addData.name
+      })
+      .then(res => {
+        toast.success('User name and IP address are created successfully!');
+        setAddOpen(false)
+        getPairs()
+      })
+      .catch(error => {
+        toast.error(error?.response.data);
+      })
   }
 
   function updateItem() {
@@ -97,25 +94,20 @@ export default function NameIpPairTable() {
       toast.error("IP Address field is required");
       return;
     }
-    // axios
-    //   .post("http://localhost:3001/api/update", {
-    //     data: updateData,
-    //   })
-    //   .then((res) => {
-    //     if (res.data === "success") {
-    //       // router.push('/dashboard');
-    //     } else {
-    //       console.error("Failed to add:", res.data);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.error("An error occurred:", err);
-    //   });
+    axios
+      .put('/api/setting/ip/' + updateData.id, {
+        ipAddress: updateData.ipAddress,
+        userName: updateData.name
+      })
+      .then(res => {
+        toast.success('User name and IP address are updated successfully!');
+        setUpdateOpen(false)
+        getPairs()
+      })
+      .catch(error => {
+        toast.error(error?.response.data);
+      })
   }
-  const [open, setOpen] = useState(false);
-  const [addOpen, setAddOpen] = useState(false);
-  const [updateOpen, setUpdateOpen] = useState(false);
-  console.log(addData)
 
   return (
     <div className="items-center`">
@@ -139,11 +131,11 @@ export default function NameIpPairTable() {
           </tr>
         </thead>
         <tbody>
-          {datas.map((data) => (
+          {datas.map((data, index) => (
             <tr key={data.id}>
-              <td className="px-3 py-3">{data.id}</td>
-              <td className="px-3 py-3">{data.name}</td>
-              <td className="px-3 py-3">{data.ip}</td>
+              <td className="px-3 py-3">{index + 1}</td>
+              <td className="px-3 py-3">{data.userName}</td>
+              <td className="px-3 py-3">{data.ipAddress}</td>
               <td className="px-2 py-2 flex items-center">
                 <PencilSquareIcon
                   className="h-6 w-6 text-blue-500 gap-3"
@@ -151,8 +143,8 @@ export default function NameIpPairTable() {
                     setUpdateOpen(true);
                     setUpdateData({
                       id: data.id,
-                      name: data.name,
-                      ipAddress: data.ip,
+                      name: data.userName,
+                      ipAddress: data.ipAddress,
                     });
                   }}
                 />
