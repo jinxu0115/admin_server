@@ -23,21 +23,20 @@ export default function Home() {
       return;
     }
 
-    axios.defaults.withCredentials = true;
-    axios
-      .post("http://192.168.8.110:8081/login", formData) // Fixed the request payload
-      .then((res) => {
-        if (res.data.validation) {
-          toast.success("Your password is correct, Thank you");
-          router.push('/dashboard'); // Use router.push for client-side navigation
-        } else {
-          toast.error("Your password is not correct");
-        }
-      })
-      .catch((err) => {
-        console.error("Error during authentication:", err);
-        toast.error("An error occurred during authentication. Please try again later.");
-      });
+    // axios.defaults.withCredentials = true;
+     try {
+      const res = await axios.post("http://192.168.8.110:8081/auth/login", formData);
+      if (res.data.token) {
+        toast.success("Login successful, redirecting...");
+        sessionStorage.setItem("token", res.data.token); // Store token
+        router.push('/dashboard'); // Navigate to dashboard
+      } else {
+        toast.error("Invalid credentials. Please try again.");
+      }
+    } catch (err) {
+      console.error("Error during authentication:", err);
+      toast.error("An error occurred during authentication. Please try again later.");
+    }
   };
 
   return (
@@ -51,7 +50,7 @@ export default function Home() {
       <section className="bg-gray-50 dark:bg-gray-900 text-center">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-            <div className="p-6 space-y-4 md:space-y-6 sm:p-8 bg-emerald-400 dark:bg-emerald-900">
+            <div className="p-6 space-y-4 md:space-y-6 sm:p-8 bg-gray-500 dark:bg-gray-800">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Sign in to your account
               </h1>
@@ -88,7 +87,7 @@ export default function Home() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
+                  className="w-full text-white bg-indigo-400 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
                 >
                   Sign in
                 </button>

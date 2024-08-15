@@ -7,6 +7,7 @@ const axios = Axios.create({
         'X-Requested-With': 'XMLHttpRequest',
         "Content-Type": "application/json",
         'Access-Control-Allow-Origin': '*',
+        'Authorization': `Bearer ${sessionStorage.token}`
     },
 })
 
