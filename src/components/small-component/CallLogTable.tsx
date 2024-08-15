@@ -94,7 +94,7 @@ const columns: TableColumn<CallLog>[] = [
     cell: (row: CallLog) => (
       <div className="relative group">
         <button 
-          onClick={() => viewMedia(row.id)} 
+          onClick={() => viewMedia(row.id, row.fileLocation)} 
           className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
@@ -108,8 +108,9 @@ const columns: TableColumn<CallLog>[] = [
   },
 ];
 
-function viewMedia(id: string) {
-  window.open('view-media/?id=' + id, '_blank');
+function viewMedia(id: string, fileLocation: string) {
+  // window.open('view-media/?id=' + id, '_blank');
+  window.open(fileLocation, '_blank');
 }
 
 function CallLogTable() {
