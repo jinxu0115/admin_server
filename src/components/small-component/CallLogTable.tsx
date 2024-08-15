@@ -83,7 +83,7 @@ const columns: TableColumn<CallLog>[] = [
     name: 'Caption',
     cell: (row: CallLog) => (
       <div className="relative group">
-        {row.caption.substring(0, 10) + '...'}
+        {row.caption?.substring(0, 10) + '...'}
       </div>
     ),
     sortable: true,
