@@ -11,7 +11,7 @@ interface CallLog {
   toTime: string;
   client: string;
   company: string;
-  nation: string;
+  nationality: string;
   gender: boolean;
   isVideo: boolean;
   // caption: string;
@@ -57,7 +57,7 @@ const columns: TableColumn<CallLog>[] = [
   },
   {
     name: 'Client Country',
-    selector: (row: CallLog) => row.nation,
+    selector: (row: CallLog) => row.nationality,
     sortable: true,
     width: '10%',
   },
@@ -110,7 +110,7 @@ const columns: TableColumn<CallLog>[] = [
 
 function viewMedia(id: string, fileLocation: string) {
   // window.open('view-media/?id=' + id, '_blank');
-  window.open(fileLocation, '_blank');
+  window.open(process.env.NEXT_PUBLIC_BACKEND_URL + '/' + fileLocation, '_blank');
 }
 
 function CallLogTable() {
@@ -133,11 +133,11 @@ function CallLogTable() {
         item.toTime.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.client.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.nation.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.nationality?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         // item.caption.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (item.gender ? 'Male' : 'Female').toLowerCase().includes(searchTerm.toLowerCase()) ||
         (item.isVideo ? 'Video' : 'Voice').toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.fileLocation.toLowerCase().includes(searchTerm.toLowerCase())
+        item.fileLocation?.toLowerCase().includes(searchTerm.toLowerCase())
       );
     });
     setFilteredData(filterData);

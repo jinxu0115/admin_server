@@ -20,11 +20,11 @@ export default function Modal({ open, onClose, children }) {
         />
         {/* content */}
         <div
-          className={`fixed md:flex rounded-md h-auto w-1/5 bg-white shadow-lg max-w-full p-0 ${
+          className={`fixed md:flex p-4 rounded-md h-auto w-96 bg-white shadow-lg max-w-full ${
             open ? "opacity-100" : "pointer-events-none opacity-0"
           } transition-opacity duration-300 ease-in-out`}
         >
-          <div className="text-center py-4 block mx-auto font-poppins">
+          <div className="text-center block mx-auto font-poppins w-full">
             {children}
           </div>
         </div>

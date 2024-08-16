@@ -54,7 +54,7 @@ export default function NameIpPairTable() {
       .then(res => {
         toast.success('User name and IP address are deleted successfully!');
         setOpen(false)
-        getPairs()
+        window.location.reload();
       })
       .catch(error => {
         toast.error(error?.response.data);
@@ -78,7 +78,7 @@ export default function NameIpPairTable() {
       .then(res => {
         toast.success('User name and IP address are created successfully!');
         setAddOpen(false)
-        getPairs()
+        window.location.reload();
       })
       .catch(error => {
         toast.error(error?.response.data);
@@ -102,7 +102,7 @@ export default function NameIpPairTable() {
       .then(res => {
         toast.success('User name and IP address are updated successfully!');
         setUpdateOpen(false)
-        getPairs()
+        window.location.reload();
       })
       .catch(error => {
         toast.error(error?.response.data);
@@ -138,7 +138,7 @@ export default function NameIpPairTable() {
               <td className="px-3 py-3">{data.ipAddress}</td>
               <td className="px-2 py-2 flex items-center">
                 <PencilSquareIcon
-                  className="h-6 w-6 text-blue-500 gap-3"
+                  className="h-6 w-6 text-blue-500 gap-3 cursor-pointer"
                   onClick={() => {
                     setUpdateOpen(true);
                     setUpdateData({
@@ -149,7 +149,7 @@ export default function NameIpPairTable() {
                   }}
                 />
                 <ArchiveBoxXMarkIcon
-                  className="h-6 w-6 text-black-500 "
+                  className="h-6 w-6 text-black-500 cursor-pointer"
                   onClick={() => {
                     setOpen(true);
                     setItem(data.id);
@@ -162,8 +162,8 @@ export default function NameIpPairTable() {
       </table>
       {open && (
         <Modal open={open} onClose={() => setOpen(false)}>
-          <div className="text-center w-56">
-            <div className="mx-auto my-4 w-48">
+          <div className="text-center">
+            <div className="mx-auto my-4">
               <h3 className="text-lg font-black text-gray-800">
                 Confirm Delete
               </h3>
@@ -172,12 +172,12 @@ export default function NameIpPairTable() {
                 Are you sure you want to delete this item
               </p>
             </div>
-            <div className="flex gap-4">
-              <button className="btn btn-danger w-full" onClick={deleteItem}>
+            <div className="flex gap-4 justify-end">
+              <button className="text-white bg-red-500 rounded-md px-2 py-1" onClick={deleteItem}>
                 Delete
               </button>
               <button
-                className="btn btn-light w-full"
+                className="bg-gray-400 rounded-md px-2 py-1 text-white"
                 onClick={() => setOpen(false)}
               >
                 Cancel
@@ -188,8 +188,8 @@ export default function NameIpPairTable() {
       )}
       {addOpen && (
         <Modal open={addOpen} onClose={() => setAddOpen(false)}>
-          <div className="text-center w-56">
-            <div className=" my-4 w-48">
+          <div className="text-start">
+            <div className=" my-4">
               <label>
                 Name:
                 <input
@@ -200,7 +200,7 @@ export default function NameIpPairTable() {
                   type="text"
                   id="name"
                   placeholder="name"
-                  className="my-2 mx-2 border-blue-500 border"
+                  className="my-2 border-gray-500 rounded-md p-2 border w-full"
                   required
                 />
               </label>
@@ -213,17 +213,17 @@ export default function NameIpPairTable() {
                   name="Ip address"
                   id="ipAddress"
                   placeholder="Ip address"
-                  className="my-2 mx-2 border-blue-500 border"
+                  className="my-2 border-gray-500 rounded-md p-2 border w-full"
                   required
                 />
               </label>
             </div>
-            <div className="flex gap-4">
-              <button className="btn btn-danger w-full" onClick={addItem}>
+            <div className="flex gap-4 justify-end">
+              <button className="text-white bg-blue-500 rounded-md px-2 py-1" onClick={addItem}>
                 Save
               </button>
               <button
-                className="btn btn-light w-full"
+                className="bg-gray-400 rounded-md px-2 py-1 text-white"
                 onClick={() => setAddOpen(false)}
               >
                 Cancel
@@ -234,8 +234,8 @@ export default function NameIpPairTable() {
       )}
       {updateOpen && (
         <Modal open={updateOpen} onClose={() => setUpdateOpen(false)}>
-          <div className="text-center w-56">
-            <div className=" my-4 w-48">
+          <div className="text-start">
+            <div className=" my-4">
               <label>
                 Name:
                 <input
@@ -247,7 +247,7 @@ export default function NameIpPairTable() {
                   id="name"
                   value={updateData.name}
                   placeholder="name"
-                  className="my-2 mx-2 border-blue-500 border"
+                  className="my-2 border-gray-500 rounded-md p-2 border w-full"
                   required
                 />
               </label>
@@ -261,17 +261,17 @@ export default function NameIpPairTable() {
                   id="ipAddress"
                   value={updateData.ipAddress}
                   placeholder="Ip address"
-                  className="my-2 mx-2 border-blue-500 border"
+                  className="my-2 border-gray-500 rounded-md p-2 border w-full"
                   required
                 />
               </label>
             </div>
-            <div className="flex gap-4">
-              <button className="btn btn-danger w-full" onClick={updateItem}>
+            <div className="flex gap-4 justify-end">
+              <button className="text-white bg-blue-500 rounded-md px-2 py-1" onClick={updateItem}>
                 Update
               </button>
               <button
-                className="btn btn-light w-full"
+                className="bg-gray-400 rounded-md px-2 py-1 text-white"
                 onClick={() => setUpdateOpen(false)}
               >
                 Cancel
