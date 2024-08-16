@@ -10,8 +10,8 @@ import axios from 'axios';
 export default function Home() {
   const [formData, setFormData] = useState({ name: "", password: "" });
   const [error, setError] = useState({ name: "", password: "" });
-  const router = useRouter(); // Use useRouter for client-side navigation
-
+  const router = useRouter();
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name) {
@@ -25,7 +25,7 @@ export default function Home() {
 
     // axios.defaults.withCredentials = true;
      try {
-      const res = await axios.post("http://192.168.8.110:8081/auth/login", formData);
+      const res = await axios.post(process.env.NEXT_PUBLIC_BACKEND_URL + "/auth/login", formData);
       if (res.data.token) {
         toast.success("Login successful, redirecting...");
         sessionStorage.setItem("token", res.data.token); // Store token
@@ -54,7 +54,7 @@ export default function Home() {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Sign in to your account
               </h1>
-              <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="#">
+              <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
                 <div className="text-left">
                   <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Your name

@@ -14,7 +14,7 @@ interface CallLog {
   nation: string;
   gender: boolean;
   isVideo: boolean;
-  caption: string;
+  // caption: string;
   fileLocation: string;
 }
 
@@ -29,19 +29,19 @@ const columns: TableColumn<CallLog>[] = [
     name: 'UserName',
     selector: (row: CallLog) => row.userName,
     sortable: true,
-    width: '7%',
+    width: '8%',
   },
   {
     name: 'From',
     selector: (row: CallLog) => row.fromTime,
     sortable: true,
-    width: '12%',
+    width: '13%',
   },
   {
     name: 'To',
     selector: (row: CallLog) => row.toTime,
     sortable: true,
-    width: '12%',
+    width: '13%',
   },
   {
     name: 'Client Name',
@@ -65,30 +65,30 @@ const columns: TableColumn<CallLog>[] = [
     name: 'Gender',
     selector: (row: CallLog) => (row.gender ? "Male" : "Female"),
     sortable: true,
-    width: '5%',
+    width: '6%',
   },
   {
     name: 'Type',
     selector: (row: CallLog) => (row.isVideo ? 'Video' : 'Voice'),
     sortable: true,
-    width: '5%',
+    width: '6%',
   },
   {
     name: 'Url',
     selector: (row: CallLog) => row.fileLocation,
     sortable: true,
-    width: '15%',
+    width: '16%',
   },
-  {
-    name: 'Caption',
-    cell: (row: CallLog) => (
-      <div className="relative group">
-        {row.caption?.substring(0, 10) + '...'}
-      </div>
-    ),
-    sortable: true,
-    width: '7%',
-  },
+  // {
+  //   name: 'Caption',
+  //   cell: (row: CallLog) => (
+  //     <div className="relative group">
+  //       {row.caption?.substring(0, 10) + '...'}
+  //     </div>
+  //   ),
+  //   sortable: true,
+  //   width: '7%',
+  // },
   {
     name: 'View',
     cell: (row: CallLog) => (
@@ -104,7 +104,7 @@ const columns: TableColumn<CallLog>[] = [
         </button>
       </div>
     ),
-    width: '4%',
+    width: '5%',
   },
 ];
 
@@ -134,7 +134,7 @@ function CallLogTable() {
         item.client.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.nation.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.caption.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        // item.caption.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (item.gender ? 'Male' : 'Female').toLowerCase().includes(searchTerm.toLowerCase()) ||
         (item.isVideo ? 'Video' : 'Voice').toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.fileLocation.toLowerCase().includes(searchTerm.toLowerCase())
