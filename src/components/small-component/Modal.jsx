@@ -24,7 +24,7 @@ export default function Modal({ open, onClose, className, children }) {
             open ? "opacity-100" : "pointer-events-none opacity-0"
           } transition-opacity duration-300 ease-in-out`}
         >
-          <div className="text-center block mx-auto font-poppins w-full">
+          <div className="text-center block mx-auto font-poppins w-full text-black">
             {children}
           </div>
         </div>
