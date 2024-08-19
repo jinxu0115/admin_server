@@ -134,7 +134,7 @@ export default function Dropdown({ userInfo }: Props) {
                   type="password"
                   value={currentPassword}
                   placeholder="Current Password"
-                  className="my-2 border-gray-500 rounded-md p-2 border w-full dark:text-black"
+                  className="my-2 border-gray-500 rounded-md p-2 border w-full text-black"
                   required
                 />
               <label>
@@ -146,7 +146,7 @@ export default function Dropdown({ userInfo }: Props) {
                   type="password"
                   value={newPassword}
                   placeholder="New Password"
-                  className="my-2 border-gray-500 rounded-md p-2 border w-full dark:text-black"
+                  className="my-2 border-gray-500 rounded-md p-2 border w-full text-black"
                   required
                 />
               </label>
@@ -159,7 +159,7 @@ export default function Dropdown({ userInfo }: Props) {
                   type="password"
                   value={confirmPassword}
                   placeholder="Confirm Password"
-                  className="my-2 border-gray-500 rounded-md p-2 border w-full dark:text-black"
+                  className="my-2 border-gray-500 rounded-md p-2 border w-full text-black"
                   required
                 />
               </label>

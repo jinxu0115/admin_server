@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState, ChangeEvent } from 'react';
+import React, { useEffect, useState, ChangeEvent, useRef } from 'react';
 import DataTable, { TableColumn } from 'react-data-table-component';
 import { useCallLogs } from '@/app/apis/getCallLogs'
 import Modal from './Modal';
@@ -34,6 +34,22 @@ function CallLogTable() {
   const [modalShow, setModalShow] = useState(false);
   const [fileUrl, setFileUrl] = useState('')
   const [mediaType, setMediaType] = useState('')
+  
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (!modalShow) {
+      // Stop the media when the modal is closed
+      if (mediaType === 'mp3' && audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      } else if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 0;
+      }
+    }
+  }, [modalShow, mediaType]);
   
   // Define the columns with proper typing
   const columns: TableColumn<CallLog>[] = [
@@ -202,9 +218,9 @@ function CallLogTable() {
         <div>
           {
             mediaType == 'mp3' ? 
-            <audio src={process.env.NEXT_PUBLIC_BACKEND_URL + '/' + fileUrl} controls autoPlay></audio>
+            <audio ref={audioRef} src={process.env.NEXT_PUBLIC_BACKEND_URL + '/' + fileUrl} controls autoPlay></audio>
             :
-            <video className='w-[1600px]' src={process.env.NEXT_PUBLIC_BACKEND_URL + '/' + fileUrl}  controls autoPlay></video>
+            <video ref={videoRef} className='w-[1600px]' src={process.env.NEXT_PUBLIC_BACKEND_URL + '/' + fileUrl}  controls autoPlay></video>
           }
         </div>
       </Modal>
