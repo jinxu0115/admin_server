@@ -38,60 +38,60 @@ function CallLogTable() {
   // Define the columns with proper typing
   const columns: TableColumn<CallLog>[] = [
     {
-      name: 'No',
+      name: 'NO',
       cell: (row: CallLog, index: number) => index + 1,
       width: '3%',
     },
     {
-      name: 'UserName',
+      name: 'USERNAME',
       selector: (row: CallLog) => row.userName,
       sortable: true,
       width: '8%',
     },
     {
-      name: 'From',
+      name: 'FROM',
       selector: (row: CallLog) => row.fromTime,
       sortable: true,
       width: '13%',
     },
     {
-      name: 'To',
+      name: 'TO',
       selector: (row: CallLog) => row.toTime,
       sortable: true,
       width: '13%',
     },
     {
-      name: 'Client Name',
+      name: 'CLIENT NAME',
       selector: (row: CallLog) => row.client,
       sortable: true,
       width: '10%',
     },
     {
-      name: 'Client Company',
+      name: 'CLIENT COMPANY',
       selector: (row: CallLog) => row.company,
       sortable: true,
       width: '10%',
     },
     {
-      name: 'Client Country',
+      name: 'CLIENT COUNTRY',
       selector: (row: CallLog) => row.nationality,
       sortable: true,
       width: '10%',
     },
     {
-      name: 'Gender',
+      name: 'GENDER',
       selector: (row: CallLog) => (row.gender ? "Male" : "Female"),
       sortable: true,
       width: '6%',
     },
     {
-      name: 'Type',
-      selector: (row: CallLog) => (row.video ? 'Video' : 'Voice'),
+      name: 'TYPE',
+      cell: (row: CallLog) => (row.video ? <img className='w-10' src='/video.png'/> : <img className='w-10' src='/voice.png'/>),
       sortable: true,
       width: '6%',
     },
     {
-      name: 'Url',
+      name: 'LOCATION',
       selector: (row: CallLog) => row.fileLocation,
       sortable: true,
       width: '16%',
@@ -107,12 +107,12 @@ function CallLogTable() {
     //   width: '7%',
     // },
     {
-      name: 'View',
+      name: 'VIEW',
       cell: (row: CallLog) => (
         <div className="relative group">
           <button 
             onClick={() => viewMedia(row.id, row.fileLocation)} 
-            className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />

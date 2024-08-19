@@ -114,14 +114,14 @@ export default function NameIpPairTable() {
       <div className="items-center  ">
         <button
           id="Add"
-          className="bg-blue-500 text-white px-2 py-2 rounded font-bold w-1/4 mb-4"
+          className="bg-blue-500 text-white px-2 py-2 rounded font-bold w-1/4 mb-3"
           onClick={() => setAddOpen(true)}
         >
           Add
         </button>
       </div>
       <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+        <thead className="text-xs uppercase bg-[#4A90E2] text-white min-h-[52px] h-[52px]">
           <tr>
             {columns.map((item, index) => (
               <th key={index} scope="col" className="px-3 py-3">
@@ -132,7 +132,7 @@ export default function NameIpPairTable() {
         </thead>
         <tbody>
           {datas.map((data, index) => (
-            <tr key={data.id}>
+            <tr key={data.id} className=" border border-gray-300">
               <td className="px-3 py-3">{index + 1}</td>
               <td className="px-3 py-3">{data.userName}</td>
               <td className="px-3 py-3">{data.ipAddress}</td>
