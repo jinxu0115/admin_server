@@ -114,7 +114,7 @@ export default function NameIpPairTable() {
       <div className="items-center  ">
         <button
           id="Add"
-          className="bg-blue-500 text-white px-2 py-2 rounded font-bold w-1/4 mb-3"
+          className="bg-[#4A90E2] text-white px-2 py-2 rounded font-bold w-1/4 mb-3"
           onClick={() => setAddOpen(true)}
         >
           Add
