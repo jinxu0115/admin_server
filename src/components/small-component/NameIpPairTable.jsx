@@ -120,8 +120,8 @@ export default function NameIpPairTable() {
           Add
         </button>
       </div>
-      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50">
           <tr>
             {columns.map((item, index) => (
               <th key={index} scope="col" className="px-3 py-3">
@@ -161,7 +161,7 @@ export default function NameIpPairTable() {
         </tbody>
       </table>
       {open && (
-        <Modal open={open} onClose={() => setOpen(false)}>
+        <Modal open={open} onClose={() => setOpen(false)} className=''>
           <div className="text-center">
             <div className="mx-auto my-4">
               <h3 className="text-lg font-black text-gray-800">
@@ -187,7 +187,7 @@ export default function NameIpPairTable() {
         </Modal>
       )}
       {addOpen && (
-        <Modal open={addOpen} onClose={() => setAddOpen(false)}>
+        <Modal open={addOpen} onClose={() => setAddOpen(false)} className=''>
           <div className="text-start">
             <div className=" my-4">
               <label>
@@ -233,7 +233,7 @@ export default function NameIpPairTable() {
         </Modal>
       )}
       {updateOpen && (
-        <Modal open={updateOpen} onClose={() => setUpdateOpen(false)}>
+        <Modal open={updateOpen} onClose={() => setUpdateOpen(false)} className=''>
           <div className="text-start">
             <div className=" my-4">
               <label>

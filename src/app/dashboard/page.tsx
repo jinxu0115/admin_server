@@ -25,25 +25,33 @@ interface UserInfoInterface {
 }
 
 const Dashboard = () => {
-  const router = useRouter()
-  const [userInfo, setUserInfo] = useState<UserInfoInterface>({})
+  const router = useRouter();
+  const [userInfo, setUserInfo] = useState<UserInfoInterface>({});
 
   useEffect(() => {
-    axios.get('/user/user')
-      .then(res => {
-        if(res.data.id == undefined) router.push('/')
-        else setUserInfo(res.data)
-      })
-      .catch(error => {
+    const fetchUserData = async () => {
+      try {
+        const res = await axios.get('/user/user');
+        if (!res.data.id) {
+          router.push('/');
+        } else {
+          setUserInfo(res.data);
+        }
+      } catch (error) {
         console.log(error);
-        router.push('/')
-      })
-  }, [])
+        router.push('/');
+      }
+    };
+
+    fetchUserData();
+  }, [router]);
+
   return (
     <div className="min-h-screen bg-white">
-      <Header userInfo={userInfo}/>
-      <BodyComponent/>
+      <Header userInfo={userInfo} />
+      <BodyComponent />
     </div>
-  )
-}
+  );
+};
+
 export default Dashboard;

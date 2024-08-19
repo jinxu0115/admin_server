@@ -3,7 +3,7 @@
 import React from "react";
 import { createPortal } from "react-dom";
 
-export default function Modal({ open, onClose, children }) {
+export default function Modal({ open, onClose, className, children }) {
   if (typeof document !== "undefined") {
     return createPortal(
       <div
@@ -20,7 +20,7 @@ export default function Modal({ open, onClose, children }) {
         />
         {/* content */}
         <div
-          className={`fixed md:flex p-4 rounded-md h-auto w-96 bg-white shadow-lg max-w-full ${
+          className={`fixed md:flex p-4 rounded-md h-auto ${className} w-96 bg-white shadow-lg max-w-full ${
             open ? "opacity-100" : "pointer-events-none opacity-0"
           } transition-opacity duration-300 ease-in-out`}
         >
