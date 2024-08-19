@@ -43,7 +43,9 @@ export default function Dropdown({ userInfo }: Props) {
       .post(process.env.NEXT_PUBLIC_BACKEND_URL + "/auth/logout") // Fixed the request payload
       .then((res) => {  
         sessionStorage.removeItem("token")
-        router.push('/');
+        if (typeof window !== "undefined") {
+          router.push('/')
+        }
       })
       .catch((err) => {
         console.error("Error sing out:", err);
@@ -119,7 +121,7 @@ export default function Dropdown({ userInfo }: Props) {
         </MenuItems>
       </Menu>
       {modalShow && (
-        <Modal open={modalShow} onClose={() => setModalShow(false)}>
+        <Modal open={modalShow} onClose={() => setModalShow(false)} className=''>
           <div className="text-start">
             <div className=" my-4">
               <label>
@@ -132,7 +134,7 @@ export default function Dropdown({ userInfo }: Props) {
                   type="password"
                   value={currentPassword}
                   placeholder="Current Password"
-                  className="my-2 border-gray-500 rounded-md p-2 border w-full"
+                  className="my-2 border-gray-500 rounded-md p-2 border w-full dark:text-black"
                   required
                 />
               <label>
@@ -144,7 +146,7 @@ export default function Dropdown({ userInfo }: Props) {
                   type="password"
                   value={newPassword}
                   placeholder="New Password"
-                  className="my-2 border-gray-500 rounded-md p-2 border w-full"
+                  className="my-2 border-gray-500 rounded-md p-2 border w-full dark:text-black"
                   required
                 />
               </label>
@@ -157,17 +159,17 @@ export default function Dropdown({ userInfo }: Props) {
                   type="password"
                   value={confirmPassword}
                   placeholder="Confirm Password"
-                  className="my-2 border-gray-500 rounded-md p-2 border w-full"
+                  className="my-2 border-gray-500 rounded-md p-2 border w-full dark:text-black"
                   required
                 />
               </label>
             </div>
             <div className="flex justify-end gap-4">
-              <button className="btn btn-danger" onClick={changePassword}>
+              <button className="text-white bg-blue-500 rounded-md px-2 py-1" onClick={changePassword}>
                 Change
               </button>
               <button
-                className="btn btn-light"
+                className="bg-gray-400 rounded-md px-2 py-1 text-white"
                 onClick={() => setModalShow(false)}
               >
                 Cancel

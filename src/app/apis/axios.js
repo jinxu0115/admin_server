@@ -1,4 +1,9 @@
-import Axios from 'axios'
+import Axios from 'axios';
+
+let token = "";
+if (typeof window !== "undefined") {
+    token = sessionStorage.getItem('token') || '';
+}
 
 const axios = Axios.create({
     baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
@@ -7,8 +12,8 @@ const axios = Axios.create({
         'X-Requested-With': 'XMLHttpRequest',
         "Content-Type": "application/json",
         'Access-Control-Allow-Origin': '*',
-        'Authorization': `Bearer ${sessionStorage.token}`
+        'Authorization': `Bearer ${token}`
     },
-})
+});
 
-export default axios
+export default axios;
