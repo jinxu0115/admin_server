@@ -198,7 +198,7 @@ function CallLogTable() {
           },
         }}
       />
-      <Modal open={modalShow} onClose={() => setModalShow(false)} className='w-[1600px]'>
+      <Modal open={modalShow} onClose={() => setModalShow(false)} className={mediaType == 'mp3' ? 'w-auto' : 'w-[1600px]'}>
         <div>
           {
             mediaType == 'mp3' ? 
