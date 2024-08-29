@@ -30,7 +30,7 @@ export default function Home() {
         toast.success("Login successful, redirecting...");
         sessionStorage.setItem("token", res.data.token); // Store token
         if (typeof window !== "undefined") {
-          router.push('/dashboard'); // Navigate to dashboard
+          router.push('/call-log');
         }
       } else {
         toast.error("Invalid credentials. Please try again.");
@@ -49,16 +49,16 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section className="bg-gray-50 text-center">
+      <section className="bg-[#222e44] text-center">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 ">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8 ">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-[#222e44] md:text-2xl ">
                 Sign in to your account
               </h1>
               <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
                 <div className="text-left">
-                  <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 ">
+                  <label htmlFor="name" className="block mb-2 text-sm font-medium text-[#222e44] ">
                     User Name
                   </label>
                   <input
@@ -66,14 +66,14 @@ export default function Home() {
                     type="text"
                     name="name"
                     id="name"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 "
+                    className="bg-gray-50 border border-gray-300 text-[#222e44] sm:text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 "
                     placeholder="username"
                     required
                   />
                   {error.name && <p className="text-sm text-red-500">{error.name}</p>}
                 </div>
                 <div className="text-left">
-                  <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 ">
+                  <label htmlFor="password" className="block mb-2 text-sm font-medium text-[#222e44] ">
                     Password
                   </label>
                   <input
@@ -89,7 +89,7 @@ export default function Home() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full text-white bg-indigo-400 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                  className="w-full text-white bg-[#222e44] hover:bg-[#1e283a] focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                 >
                   Sign in
                 </button>

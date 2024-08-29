@@ -25,12 +25,8 @@ interface HeaderProps {
 
 export default function Header({ userInfo }: HeaderProps) {
   return (
-    <div className="h-20 px-10 py-5 border-b border-gray-400 bg-white flex items-center">
-      <div className="flex items-center justify-between w-full">
-        <div className="flex items-center">
-          <img className="h-12" src="/logo.png" alt="Logo" />
-          <div className="ml-3 text-3xl font-bold">Server</div>
-        </div>
+    <div className="h-20 px-10 py-5 border-b border-[#222e44] flex items-center bg-[#222e44] -ml-[1px]">
+      <div className="flex items-center justify-end w-full">
         <div>
           <Dropdown userInfo={userInfo}/>
         </div>

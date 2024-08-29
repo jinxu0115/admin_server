@@ -114,14 +114,14 @@ export default function NameIpPairTable() {
       <div className="items-center  ">
         <button
           id="Add"
-          className="bg-[#4A90E2] text-white px-2 py-2 rounded font-bold w-1/4 mb-3"
+          className="bg-[#222e44] text-white px-2 py-2 rounded font-bold w-1/4 mb-3"
           onClick={() => setAddOpen(true)}
         >
           Add
         </button>
       </div>
       <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-        <thead className="text-xs uppercase bg-[#4A90E2] text-white min-h-[52px] h-[52px]">
+        <thead className="text-xs uppercase bg-[#222e44] text-white min-h-[52px] h-[52px]">
           <tr>
             {columns.map((item, index) => (
               <th key={index} scope="col" className="px-3 py-3">
@@ -138,7 +138,7 @@ export default function NameIpPairTable() {
               <td className="px-3 py-3">{data.ipAddress}</td>
               <td className="px-2 py-2 flex items-center">
                 <PencilSquareIcon
-                  className="h-6 w-6 text-blue-500 gap-3 cursor-pointer"
+                  className="h-6 w-6 text-[#222e44] gap-3 cursor-pointer"
                   onClick={() => {
                     setUpdateOpen(true);
                     setUpdateData({
@@ -149,7 +149,7 @@ export default function NameIpPairTable() {
                   }}
                 />
                 <ArchiveBoxXMarkIcon
-                  className="h-6 w-6 text-black-500 cursor-pointer"
+                  className="h-6 w-6 text-[#222e44] cursor-pointer"
                   onClick={() => {
                     setOpen(true);
                     setItem(data.id);
