@@ -160,7 +160,7 @@ function CallLogTable() {
       return (
         item.userName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.fromTime.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.duration.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.duration?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.client.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.nationality?.toLowerCase().includes(searchTerm.toLowerCase()) ||

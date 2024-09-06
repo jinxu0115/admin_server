@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'; // Use 'next/navigation' for client
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import Link from 'next/link';
 
 export default function Home() {
   const [formData, setFormData] = useState({ name: "", password: "" });
@@ -94,6 +95,13 @@ export default function Home() {
                   Sign in
                 </button>
               </form>
+              <div>
+                <Link href="/call-log" className="w-full flex justify-start">
+                  <button className="underline text-blue-400">
+                    Call Logs
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -4,14 +4,14 @@ import Header from "@/components/Header";
 import axios from "../apis/axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Layout from "@/layout/Layout";
+import Layout from "@/Layout/Layout";
 import ScreenViewComponent from '@/components/small-component/ScreenViewComponent'
 
 
 const ScreenMonitor = () => {
 
   return (
-    <Layout>
+    <Layout title="Screen Monitor">
       <ScreenViewComponent/>
     </Layout>
   )

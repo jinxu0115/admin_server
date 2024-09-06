@@ -9,7 +9,7 @@ export default function Sidebar() {
         <div className="bg-[#222e44] h-full">            
             <div className="flex items-center h-20 justify-center">
                 <img className="h-12" src="/logo.png" alt="Logo" />
-                <div className="ml-3 text-3xl font-bold text-white">Server</div>
+                <div className="ml-3 text-3xl font-bold text-white">IMS</div>
             </div>
             <div className="p-5">
                 <SidebarItem

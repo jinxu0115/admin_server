@@ -1,20 +1,59 @@
-import {useEffect, useState} from "react"
+import { useEffect, useState } from "react";
+import ScreenViewer from "@/components/small-component/ScreenViewer";
+import { SelectPicker } from 'rsuite';
+import 'rsuite/SelectPicker/styles/index.css';
+import { DatePicker } from 'rsuite';
+import 'rsuite/DatePicker/styles/index.css';
+import axios from "../../app/apis/axios";
 
-export default function ScreenViewComponent(){
-    const [selectedDate, setSelectedDate] = useState(new Date())
-    const [viewMode, setViewMode] = useState('daily')
+export default function ScreenViewComponent() {
+    const [users, setUsers] = useState([]);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedUser, setSelectedUser] = useState(null);
 
-    function selectViewMode(mode){
-        setViewMode(mode)
-    }
+    useEffect(() => {
+        axios
+            .get('/api/setting/list')
+            .then(res => {
+                const userOptions = res.data.reverse().map((pair : any) => ({
+                    label: pair.userName,
+                    value: pair.userName // Ensure this is the correct value
+                }));
+
+                setUsers(userOptions);
+
+                // Automatically select the first user if there are users available
+                if (userOptions.length > 0) {
+                    setSelectedUser(userOptions[0].value); // Set the first user's value correctly
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching users:", error);
+            });
+    }, []);
+
     return (
         <div>
-            <div className="flex justify-end">
-                <button onClick={() => selectViewMode("daily")} className={`w-20 px-2 hover:bg-[#222e44] hover:text-white transition-all duration-200 py-1 border-[1px] border-[#222e44] border-r-0 rounded-l-md ${viewMode == 'daily' ? 'bg-[#222e44] text-white' : 'text-[#222e44] bg-white '}`}>Daily</button>
-                <button onClick={() => selectViewMode('weely')} className={`w-20 px-2 hover:bg-[#222e44] hover:text-white transition-all duration-200 py-1 border-[1px] border-[#222e44] border-r-0 ${viewMode == 'weely' ? 'bg-[#222e44] text-white' : 'text-[#222e44] bg-white'}`}>Weekly</button>
-                <button onClick={() => selectViewMode('monthly')} className={`w-20 px-2 hover:bg-[#222e44] hover:text-white transition-all duration-200 py-1 border-[1px] border-[#222e44] rounded-r-md  ${viewMode == 'monthly' ? 'bg-[#222e44] text-white' : 'text-[#222e44] bg-white'}`}>Monthly</button>
-                <button onClick={() => selectViewMode('custom')} className={`w-32 px-2 hover:bg-[#222e44] hover:text-white transition-all duration-200 py-1 border-[1px] border-[#222e44] ml-2 rounded-md ${viewMode == 'custom' ? 'bg-[#222e44] text-white' : 'text-[#222e44] bg-white'}`}>Date Range</button>
+            <div className="flex justify-start mt-5 mr-5">
+                <SelectPicker 
+                    label="User" 
+                    value={selectedUser} 
+                    data={users} 
+                    onChange={(id) => setSelectedUser(id)} 
+                    cleanable={false}
+                    oneTap={true} 
+                />
+                <DatePicker 
+                    className="ml-3"
+                    placeholder="Select Date"
+                    value={selectedDate}
+                    onChange={(date) => setSelectedDate(date || new Date())}
+                    cleanable={false}
+                />
+            </div>
+            <div className="py-5">
+                <ScreenViewer selectedDate={selectedDate.toString()} selectedUser={selectedUser} />
             </div>
         </div>
-    )
+    );
 }
