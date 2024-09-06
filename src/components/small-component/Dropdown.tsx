@@ -90,7 +90,9 @@ export default function Dropdown({ userInfo }: Props) {
         <div>
           <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-full bg-white px-1 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 items-center">
             <img className="h-12 rounded-full" src="/admin.png" />
-            <span className="font-bold px-2">{userInfo.name}</span>
+            {
+              userInfo.name && <span className="font-bold px-2">{userInfo.name}</span>
+            }            
           </MenuButton>
         </div>
 

@@ -19,6 +19,7 @@
     "react-data-table-component": "^7.6.2",
     "react-dom": "^18",
     "react-toastify": "^10.0.5",
+    "rsuite": "^5.70.0",
     "styled-components": "^6.1.12",
     "swr": "^2.2.5"
   },
