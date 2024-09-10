@@ -41,7 +41,6 @@ export default function ScreenViewComponent() {
                     data={users} 
                     onChange={(id) => setSelectedUser(id)} 
                     cleanable={false}
-                    oneTap={true} 
                 />
                 <DatePicker 
                     className="ml-3"
@@ -49,6 +48,7 @@ export default function ScreenViewComponent() {
                     value={selectedDate}
                     onChange={(date) => setSelectedDate(date || new Date())}
                     cleanable={false}
+                    oneTap={true} 
                 />
             </div>
             <div className="py-5">
