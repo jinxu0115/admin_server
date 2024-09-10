@@ -32,6 +32,8 @@ export default function ScreenViewer({ selectedDate, selectedUser }: ScreenViewe
     const [modalShow, setModalShow] = useState<boolean>(false);
     const [videoUrl, setVideoUrl] = useState<string>('');
 
+    const [videoViewType, setVideoViewType] = useState<string>('both');
+
     useEffect(() => {
         if (selectedUser == null) return;
         if (selectedDate != null) {
@@ -111,6 +113,17 @@ export default function ScreenViewer({ selectedDate, selectedUser }: ScreenViewe
         return `${hours}:${minutes}`;
     }
 
+    function secondsToMinutes(seconds: number) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+      
+        // Pad single-digit minutes and seconds with leading zeros
+        const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+        const formattedSeconds = remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds;
+      
+        return `${formattedMinutes}:${formattedSeconds}`;
+    }
+
     function getInfoFromTime(timeRange: TimeRange) {
         const startTime = formatDateToHHMM(timeRange.start);
         const endTime = formatDateToHHMM(timeRange.end);
@@ -134,15 +147,28 @@ export default function ScreenViewer({ selectedDate, selectedUser }: ScreenViewe
 
         let mouseFrequency = Math.round(info[0].mouseCount / 1200 * 100);
         let keyFrequency = Math.round(info[0].keyCount / 1200 * 100);
-        mouseFrequency = Math.min(100, Math.max(2, mouseFrequency));
-        keyFrequency = Math.min(100, Math.max(2, keyFrequency));
+        
+        mouseFrequency = mouseFrequency != 0 ? Math.min(100, Math.max(2, mouseFrequency)) : 0;
+        keyFrequency = keyFrequency != 0 ? Math.min(100, Math.max(2, keyFrequency)) : 0;
+
+        let duration = secondsToMinutes(info[0].duration);
 
         return (
             <div className="p-2">
-                <div className="flex items-center font-bold">
-                    <div>{startTime}</div>
-                    <div> - </div>
-                    <div>{endTime}</div>
+                <div className="flex items-center justify-between font-bold">
+                    <div className="flex items-center">
+                        <div>{startTime}</div>
+                        <div> - </div>
+                        <div>{endTime}</div>
+                    </div>
+                    <div className="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                        <div className="ml-1">
+                            {duration}
+                        </div>
+                    </div>
                 </div>
                 <div className="flex w-full my-1">
                     <div className="flex w-1/2 items-center">
@@ -158,10 +184,7 @@ export default function ScreenViewer({ selectedDate, selectedUser }: ScreenViewe
                         </div>
                     </div>
                 </div>
-                <div>
-                    Video Duration: {info[0].duration} s
-                </div>
-                <div className="text-sm mt-2">
+                <div className="text-[0.75rem] leading-[1.1rem] mt-2 max-h-[200px] overflow-auto">
                     {info[0].urls.map((app) => app && (
                         <div key={app} className="border mt-1 border-gray-600 px-1 break-words">
                             {app}
@@ -207,8 +230,32 @@ export default function ScreenViewer({ selectedDate, selectedUser }: ScreenViewe
                 </div>
             </div>        
             {modalShow && (
-                <Modal open={modalShow} onClose={() => setModalShow(false)} className="w-[1600px]">
-                    <video className="w-[1600px]" src={videoUrl} controls autoPlay></video>
+                <Modal open={modalShow} onClose={() => setModalShow(false)} className="overflow-hidden w-auto">
+                    <div className="overflow-hidden w-[1500px]">
+                        <div className="flex items-center mb-4 gap-2">
+                            <button className="rounded-md px-2 py-1 border-2 border-black" onClick={() => setVideoViewType('both')}>
+                                1  &nbsp;&nbsp;&nbsp; 2
+                            </button>
+                            <button className="rounded-md px-3 py-1 border-2 border-black" onClick={() => setVideoViewType('first')}>
+                                1
+                            </button>
+                            <button className="rounded-md px-3 py-1 border-2 border-black" onClick={() => setVideoViewType('second')}>
+                                2
+                            </button>
+                        </div>
+                        <div
+                            className={
+                                "relative h-[843px] " +
+                                (videoViewType === "both"
+                                ? "w-[1500px]"
+                                : videoViewType === "first"
+                                ? "w-[3000px]"
+                                : "w-[3000px] -translate-x-1/2")
+                            }
+                        >
+                            <video className={"h-[843px] w-auto absolute " + (videoViewType != "both" && "object-fill")} src={videoUrl} controls autoPlay></video>
+                        </div>
+                    </div>
                 </Modal>
             )}    
         </div>
