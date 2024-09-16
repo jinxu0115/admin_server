@@ -130,7 +130,10 @@ export default function ScreenViewer({ selectedDate, selectedUser }: ScreenViewe
 
         const info = screenInfors.filter((info) => {
             const date = new Date(info.fromDate.slice(0, -6));
-            return date.getTime() >= timeRange.start.getTime() && date.getTime() <= timeRange.end.getTime();
+
+            console.log(timeRange.start.getTime(), timeRange.end.getTime(), date.getTime())
+
+            return date.getTime() >= timeRange.start.getTime() - 10000 && date.getTime() <= timeRange.end.getTime() + 10000;
         });
 
         if (info.length === 0) {
